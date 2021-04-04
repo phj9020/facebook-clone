@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Avatar } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const StoryContainer = styled.div`
     width: 120px;
@@ -10,11 +11,13 @@ const StoryContainer = styled.div`
     background-position: center center;
     border-radius:10px;
     box-shadow: 0px 3px 10px -5px rgba(242, 241, 239, 0.75);
-    margin-right: 10px;
     transition: transform 0.2s ease-in;
     cursor: pointer;
     position: relative;
 
+    :not(:last-child) {
+        margin-right: 10px;
+    }
     :hover {
         transform: scale(1.07);
     }
@@ -27,8 +30,8 @@ const StoryContainer = styled.div`
 
     h4 {
         position: absolute;
-        bottom: 20px;
-        left: 20px;
+        bottom: 10px;
+        left: 10px;
         color: white;
     }
 
@@ -44,5 +47,10 @@ function Story({image, name, profileSrc}) {
 }
 
 
+Story.propTypes   = {
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    profileSrc: PropTypes.string.isRequired
+}
 
 export default Story;

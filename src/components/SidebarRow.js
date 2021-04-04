@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Avatar } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const SidebarRowContainer=styled.div`
     display: flex;
@@ -34,6 +35,12 @@ function SidebarRow({src, Icon, title}) {
             <h4>{title}</h4>
         </SidebarRowContainer>
     )
+}
+
+SidebarRow.prototype = {
+    src: PropTypes.string,
+    Icon: PropTypes.string,
+    title: PropTypes.string
 }
 
 export default SidebarRow

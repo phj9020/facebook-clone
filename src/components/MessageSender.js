@@ -86,8 +86,8 @@ function MessageSender() {
 
 
         // reset input value after submit 
-        // setInput("")
-        // setImageUrl("")
+        setInput("")
+        setImageUrl("")
 
     }
 

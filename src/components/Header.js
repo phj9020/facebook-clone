@@ -24,6 +24,7 @@ const HeaderContainer = styled.div`
     position: fixed;
     left: 0px;
     top:0px;
+    z-index: 9999;
 `
 const HeaderLeft = styled.div`
     display: flex;

@@ -12,6 +12,10 @@ import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 const SidebarContainer = styled.div`
     min-width: 300px;
     padding: 25px 10px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 67px;
 `
 
 function Sidebar() {

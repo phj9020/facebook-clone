@@ -6,7 +6,7 @@ import Feed from './Feed';
 
 const AppContainer = styled.div`
   background-color: #18191a;
-  height: 100vh;
+  height:auto;
 
 `
 
@@ -24,7 +24,6 @@ function App() {
       <BodyContainer>
         <Sidebar />
         <Feed />
-        {/* Feed */}
         {/* Widget */}
       </BodyContainer>
     
