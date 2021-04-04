@@ -9,7 +9,7 @@ const StoryContainer = styled.div`
     background-size: cover;
     background-position: center center;
     border-radius:10px;
-    box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 3px 10px -5px rgba(242, 241, 239, 0.75);
     margin-right: 10px;
     transition: transform 0.2s ease-in;
     cursor: pointer;
