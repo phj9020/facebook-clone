@@ -15,11 +15,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const HeaderContainer = styled.div`
     width: 100%;
+    height: 63px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px;
+    padding: 2px 8px;
     background-color:#242526;
+    position: fixed;
+    left: 0px;
+    top:0px;
 `
 const HeaderLeft = styled.div`
     display: flex;
@@ -53,16 +57,18 @@ const HeaderLeft = styled.div`
 const HeaderCenter = styled.div`
     display: flex;
     flex:0.4;
-
+    
     .header__center__option {
+        min-width: 60px;
         width: 20%;
-        height: 100%;
         color: #94989b;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
         padding: 10px 0px;
+        position:relative;
+        top:4px;
 
         :hover {
             background-color: #3a3b3c;
@@ -74,7 +80,13 @@ const HeaderCenter = styled.div`
         }
         .MuiSvgIcon-root{
             font-size: 35px;
-            
+        }
+    }
+
+    .header__center_option--active {
+        border-bottom: 4px solid #2e81f4;
+        .MuiSvgIcon-root{
+            color: #2e81f4;
         }
     }
 `
@@ -110,7 +122,7 @@ function Header() {
                 </div>
             </HeaderLeft>
             <HeaderCenter>
-                <div className="header__center__option">
+                <div className="header__center__option header__center_option--active">
                     <HomeIcon />
                 </div>
                 <div className="header__center__option">
