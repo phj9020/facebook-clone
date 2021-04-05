@@ -3,10 +3,10 @@ import Header from './Header';
 import styled from 'styled-components';
 import Sidebar from './Sidebar';
 import Feed from './Feed';
+import Widgets from './Widgets';
 
 const AppContainer = styled.div`
   background-color: #18191a;
-  height:auto;
 
 `
 
@@ -24,7 +24,7 @@ function App() {
       <BodyContainer>
         <Sidebar />
         <Feed />
-        {/* Widget */}
+        <Widgets />
       </BodyContainer>
     
     </AppContainer>
