@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Avatar } from '@material-ui/core';
@@ -9,6 +9,9 @@ import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineO
 import NearMeIcon from '@material-ui/icons/NearMe';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
+import ThumbUpRoundedIcon from '@material-ui/icons/ThumbUpRounded';
+import firebase from "firebase/app";
+import {FireStore} from '../firebase';
 
 const PostContainer = styled.div`
     width: 610px;
@@ -53,6 +56,22 @@ const PostImage = styled.div`
     }
 `
 
+const PostLike = styled.div`
+    width: 100%;
+    margin-top: 10px;
+
+    .post__like {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .MuiSvgIcon-root {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+    }
+`
+
 const PostOptions = styled.div`
     display: flex;
     justify-content: space-evenly;
@@ -81,16 +100,44 @@ const PostOptions = styled.div`
             }
         }
     }
+    .post__like--active {
+        .MuiSvgIcon-root, p {
+            color:#3b8ad9;
+        }
+    }
 `
 
-function Post({profilePic, image, username, timestamp, message}) {
+function Post({postObj, profilePic, image, username, timestamp, message}) {
+    const [isClickLike, setIsClickLike] = useState(false);
+    
+    const likeClicked = (e) => {
+        e.preventDefault();
+        const currentTarget = e.currentTarget;
+
+        currentTarget.classList.toggle('post__like--active');
+
+        if(isClickLike === false) {
+            setIsClickLike(true);
+            const db = FireStore.collection('post').doc(`${postObj.documentId}`)
+            db.update({
+                like: firebase.firestore.FieldValue.increment(1)
+            })
+        } else {
+            const db = FireStore.collection('post').doc(`${postObj.documentId}`)
+            db.update({
+                like: firebase.firestore.FieldValue.increment(-1)
+            })
+            setIsClickLike(false);
+        }
+    }
+
     return (
         <PostContainer>
             <PostTop>
                 <Avatar src={profilePic} />
                 <div className="post__topInfo">
                     <h3>{username}</h3>
-                    <p>{moment(timestamp * 1000).format('MMMM Do YYYY, h:mm a')}</p>
+                    <p>{moment(timestamp).format('MMMM Do YYYY, h:mm a')}</p>
                 </div>
             </PostTop>
             <PostBottom>
@@ -99,8 +146,14 @@ function Post({profilePic, image, username, timestamp, message}) {
             <PostImage>
                 {image ? <img src={image} alt="postedImage" /> : null}
             </PostImage>
+            <PostLike>
+                <div className="post__like">
+                    <ThumbUpRoundedIcon />
+                    <p>{postObj?.like}</p>
+                </div>
+            </PostLike>
             <PostOptions>
-                <div className="post__option">
+                <div className="post__option" onClick={likeClicked}>
                     <ThumbUpIcon />
                     <p>Like</p>
                 </div>

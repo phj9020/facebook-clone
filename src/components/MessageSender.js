@@ -5,6 +5,7 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import {useStateValue} from '../dataLayer/StateProvider';
+import {FireStore} from '../firebase';
 
 const MessageSenderContainer = styled.div`
     max-width: 650px;
@@ -86,11 +87,20 @@ function MessageSender() {
         e.preventDefault();
         // save input value in DB 
 
+        const postObject = {
+            message: input,
+            createAt: Date.now(),
+            creatorId: user.uid,
+            author: user.displayName,
+            imageUrl: imageUrl,
+            profilePic: user.photoURL,
+            like: 0
+        }
+        FireStore.collection("post").add(postObject);
 
         // reset input value after submit 
         setInput("")
         setImageUrl("")
-
     }
 
     const handleChange = (e) => {

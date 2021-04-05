@@ -2,7 +2,7 @@
 export const SETUSER = 'set_user';
 
 export const initialState = {
-    user: null,
+    user: null
 }
 
 
