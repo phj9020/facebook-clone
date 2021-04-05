@@ -12,6 +12,9 @@ import AddIcon from '@material-ui/icons/Add';
 import ForumIcon from '@material-ui/icons/Forum';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {Auth} from '../firebase';
+import {useStateValue} from '../dataLayer/StateProvider';
+
 
 const HeaderContainer = styled.div`
     width: 100%;
@@ -100,10 +103,14 @@ const HeaderRight =styled.div`
     .header__info {
         display: flex;
         align-items: center;
+        cursor: pointer;
 
         .MuiAvatar-root {
             margin-right:10px;
             
+        }
+        h4 {
+            min-width: 48px;
         }
     }
 
@@ -113,6 +120,13 @@ const HeaderRight =styled.div`
 `
 
 function Header() {
+    const {user} = useStateValue();
+    console.log(user)
+
+    const signOut = (e) => {
+        e.preventDefault();
+        Auth.signOut();
+    }
     return (
         <HeaderContainer>
             <HeaderLeft>
@@ -140,9 +154,9 @@ function Header() {
                 </div>
             </HeaderCenter>
             <HeaderRight>
-                <div className="header__info">
-                    <Avatar />
-                    <h4>Hanjin</h4>
+                <div className="header__info" onClick={signOut}>
+                    <Avatar src={user?.photoURL} />
+                    <h4>{user?.displayName}</h4>
                 </div>
                 <IconButton>
                     <AddIcon />

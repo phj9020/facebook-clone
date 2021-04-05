@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from './Header';
 import styled from 'styled-components';
 import Sidebar from './Sidebar';
 import Feed from './Feed';
 import Widgets from './Widgets';
+import Login from './Login';
+import {Auth} from '../firebase';
+import {useDispatch, useStateValue} from '../dataLayer/StateProvider';
+import {SETUSER} from '../dataLayer/reducer';
 
 const AppContainer = styled.div`
-  background-color: #18191a;
-
 `
 
 const BodyContainer = styled.div`
@@ -18,15 +20,32 @@ const BodyContainer = styled.div`
 
 `
 function App() {
+  const dispatch = useDispatch();
+  const {user} = useStateValue();
+
+  useEffect(() => {
+    Auth.onAuthStateChanged(user => {
+      if(user) {
+        dispatch({type:SETUSER, user: user, isLoggedIn: true});
+      } else {
+        dispatch({type:SETUSER, user: null, isLoggedIn: false});
+      }
+    })
+  },[dispatch])
+
   return (
     <AppContainer className="App">
-      <Header />
-      <BodyContainer>
-        <Sidebar />
-        <Feed />
-        <Widgets />
-      </BodyContainer>
-    
+      {!user ? 
+        <Login /> :  
+        <>
+          <Header />
+          <BodyContainer>
+            <Sidebar />
+            <Feed />
+            <Widgets />
+          </BodyContainer>
+        </>
+      }
     </AppContainer>
   );
 }

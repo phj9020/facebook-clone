@@ -8,6 +8,7 @@ import StorefrontIcon from '@material-ui/icons/Storefront';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import {useStateValue} from '../dataLayer/StateProvider';
 
 const SidebarContainer = styled.div`
     min-width: 300px;
@@ -19,9 +20,12 @@ const SidebarContainer = styled.div`
 `
 
 function Sidebar() {
+    const {user} = useStateValue();
+
+
     return (
         <SidebarContainer>
-            <SidebarRow  src="https://avatars.githubusercontent.com/u/26403885?v=4" title="Name" />
+            <SidebarRow  src={user?.photoURL} title={user?.displayName} />
             <SidebarRow  Icon={LocalHospitalIcon} title="COVID-19 Information Center" />
             <SidebarRow  Icon={EmojiFlagsIcon} title="Pages" />
             <SidebarRow Icon={PeopleIcon} title="Friends"/>
